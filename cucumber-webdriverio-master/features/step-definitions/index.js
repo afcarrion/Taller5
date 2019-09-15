@@ -60,4 +60,51 @@ defineSupportCode(({ Given, When, Then }) => {
   Then("I want for home page", () => {
     browser.waitForVisible("#cuenta", 6000);
   });
+
+  /** Registro en la pagina los estudiantes */
+  When("I open the register screen", () => {
+    browser.waitForVisible("button=Ingresar", 6000);
+    setTimeout(function() {
+      browser.click("button=Ingresar");
+    }, 3000);
+    browser.click("button=Ingresar");
+  });
+
+  When(
+    /^I fill with (.*), (.*), (.*), (.*), (.*)$/,
+    (nombre, apellido, correo, password, terminos) => {
+      browser.waitForVisible(".cajaSignUp", 5000);
+      var cajaSignUp = browser.element(".cajaSignUp");
+
+      var nombreInput = cajaSignUp.element('input[name="nombre"]');
+      nombreInput.click();
+      nombreInput.keys(nombre);
+
+      var apellidoInput = cajaSignUp.element('input[name="apellido"]');
+      apellidoInput.click();
+      apellidoInput.keys(apellido);
+
+      var mailInput = cajaSignUp.element('input[name="correo"]');
+      mailInput.click();
+      mailInput.keys(correo);
+
+      var passwordInput = cajaSignUp.element('input[name="password"]');
+      passwordInput.click();
+      passwordInput.keys(password);
+
+      var selectPrograma = cajaSignUp.element('select[name="idPrograma"]');
+      selectPrograma.selectByVisibleText("Lenguas y Cultura");
+
+      if (terminos === "true") {
+        var acceptInput = cajaSignUp.element('input[name="acepta"]');
+        acceptInput.click();
+      }
+    }
+  );
+
+  When("I try to register", () => {
+    browser.waitForVisible(".cajaSignUp", 5000);
+    var cajaSignUp = browser.element(".cajaSignUp");
+    cajaSignUp.element("button=Registrarse").click();
+  });
 });
