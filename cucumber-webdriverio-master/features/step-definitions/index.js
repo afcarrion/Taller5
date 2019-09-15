@@ -11,6 +11,9 @@ defineSupportCode(({ Given, When, Then }) => {
 
   When("I open the login screen", () => {
     browser.waitForVisible("button=Ingresar", 6000);
+    setTimeout(function() {
+      browser.click("button=Ingresar");
+    }, 3000);
     browser.click("button=Ingresar");
   });
 
@@ -32,6 +35,25 @@ defineSupportCode(({ Given, When, Then }) => {
   });
 
   Then("I expect to not be able to login", () => {
+    browser.waitForVisible(".aviso.alert.alert-danger", 6000);
+  });
+
+  When(/^I fill with (.*) and (.*)$/, (email, password) => {
+    browser.waitForVisible(".cajaLogIn", 5000);
+    var cajaLogIn = browser.element(".cajaLogIn");
+
+    var mailInput = cajaLogIn.element('input[name="correo"]');
+    mailInput.click();
+    mailInput.keys(email);
+
+    var passwordInput = cajaLogIn.element('input[name="password"]');
+    passwordInput.click();
+    passwordInput.keys(password);
+  });
+
+  Then("I expect to see {string}", error => {
     browser.waitForVisible(".aviso.alert.alert-danger", 5000);
+    var alertText = browser.element(".aviso.alert.alert-danger").getText();
+    expect(alertText).to.include(error);
   });
 });
