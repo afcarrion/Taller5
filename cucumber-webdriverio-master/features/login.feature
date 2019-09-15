@@ -13,3 +13,15 @@ Given I go to losestudiantes home screen
       | email            | password | error                    |
       |                  |          | Ingresa una contraseña   |
       | miso@gmail.com   |    1234  | Upss! El correo y        |
+
+Scenario Outline: LogIn Success with correct inputs
+
+Given I go to losestudiantes home screen
+    When I open the login screen
+    And I fill with <email> and <password>
+    And I try to login
+    Then I want for home page
+
+    Examples:
+      | email            | password | 
+      | afcarrion02@gmail.com   |   colombia1       | 

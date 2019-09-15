@@ -56,4 +56,8 @@ defineSupportCode(({ Given, When, Then }) => {
     var alertText = browser.element(".aviso.alert.alert-danger").getText();
     expect(alertText).to.include(error);
   });
+
+  Then("I want for home page", () => {
+    browser.waitForVisible("#cuenta", 6000);
+  });
 });
