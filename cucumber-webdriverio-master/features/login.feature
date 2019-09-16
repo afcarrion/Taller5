@@ -24,4 +24,4 @@ Given I go to losestudiantes home screen
 
     Examples:
       | email            | password | 
-      | afcarrion02@gmail.com   |   colombia1       | 
+      | afcarrion02@gmail.com   |   colombia1       |   
